@@ -1,0 +1,9 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos est├ín actualizados para la restauraci├│n.
+  AvaloniaModernApp -> C:\trabajos\trabajo-oficina\react\prueba-avalonia\AvaloniaModernApp\bin\Debug\net9.0\AvaloniaModernApp.dll
+
+Compilaci├│n correcta.
+    0 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:00.60

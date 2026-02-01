@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaModernApp.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaModernApp.Views.SendSmsView"
+             x:DataType="vm:SendSmsViewModel">
+
+    <Grid RowDefinitions="Auto, *" ColumnDefinitions="2*, 3*" ColumnSpacing="20" Margin="20">
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,20">
+            <TextBlock Text="Send SMS" Theme="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Text="Selecciona Contacts y redacta el Message" Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+        </StackPanel>
+
+        <!-- Contacts -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="16">
+            <StackPanel Spacing="12">
+                <TextBox Text="{Binding SearchText}" Watermark="Search de Contacts..." UseFloatingWatermark="True"/>
+                <TextBlock Text="{Binding SelectedCount, StringFormat=Seleccionados: {0}}" Opacity="0.6"/>
+
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding FilteredContacts}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="12" Margin="0,0,0,10">
+                                    <CheckBox IsChecked="{Binding IsSelected}" VerticalAlignment="Center"/>
+                                    <Grid Grid.Column="1" ColumnDefinitions="Auto, *" ColumnSpacing="12">
+                                        <Border Width="36" Height="36" CornerRadius="18" Background="#2000d4ff"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Initials}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       FontWeight="Bold"
+                                                       Foreground="#00d4ff"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{Binding PhoneNumber}" Opacity="0.6" FontSize="12"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Message -->
+        <Border Grid.Row="1" Grid.Column="1"
+                Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="16">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Message" FontWeight="SemiBold"/>
+
+                <TextBox Text="{Binding Message}"
+                         Watermark="Escribe tu Message..."
+                         UseFloatingWatermark="True"
+                         AcceptsReturn="True"
+                         Height="200"
+                         TextWrapping="Wrap" />
+
+                <TextBlock Text="{Binding MessageLength, StringFormat=Caracteres: {0}}" Opacity="0.6"/>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding ErrorMessage}" Foreground="#ff8080"/>
+                    <TextBlock Text="{Binding StatusMessage}" Foreground="#70ffb0"/>
+                </StackPanel>
+
+                <Button Command="{Binding SendCommand}"
+                        Content="Send a seleccionados"
+                        HorizontalAlignment="Right"
+                        Margin="0,6,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

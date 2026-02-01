@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaModernApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaModernApp.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Dashboard SMS"
+        TransparencyLevelHint="Mica, AcrylicBlur, Blur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        PointerPressed="OnPointerPressed"
+        WindowStartupLocation="CenterScreen">
+
+    <Panel>
+        <!-- Background Gradient -->
+        <!-- Background Gradient Removed for Native Look -->
+        
+        <!-- Main Content Area with Transitions -->
+        <TransitioningContentControl Content="{Binding CurrentViewModel}" ClipToBounds="False">
+            <TransitioningContentControl.PageTransition>
+                <CrossFade Duration="0:0:0.4" FadeOutEasing="CircularEaseIn" FadeInEasing="CircularEaseOut" />
+            </TransitioningContentControl.PageTransition>
+        </TransitioningContentControl>
+    </Panel>
+
+</Window>

@@ -1,0 +1,106 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:AvaloniaModernApp.ViewModels"
+        mc:Ignorable="d"
+        x:Class="AvaloniaModernApp.Views.AddContactDialog"
+        x:DataType="vm:AddContactDialogViewModel"
+        Title="Agregar contacto"
+        Width="430"
+        SizeToContent="Height"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Background="Transparent">
+
+    <Border CornerRadius="18"
+            Padding="22"
+            BorderBrush="#2b2b2b"
+            BorderThickness="1">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#202124" />
+                <GradientStop Offset="1" Color="#161616" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="22" Color="#000000" Opacity="0.45" />
+        </Border.Effect>
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="14">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Border Width="36" Height="36" CornerRadius="18" Background="#1a2a2e" Opacity="0.6">
+                    <TextBlock Text="{Binding IconLetter}" Foreground="#00c2a8" FontWeight="Bold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel>
+                    <TextBlock Text="Agregar contacto" FontSize="20" FontWeight="Bold" />
+                    <TextBlock Text="Completa los datos del contacto" Opacity="0.6" />
+                </StackPanel>
+            </StackPanel>
+
+            <TextBox Grid.Row="1"
+                     Text="{Binding Name}"
+                     Watermark="Nombre completo"
+                     UseFloatingWatermark="True"
+                     Classes="dialogInput" />
+
+            <TextBox Grid.Row="2"
+                     Text="{Binding PhoneNumber}"
+                     Watermark="Telefono"
+                     UseFloatingWatermark="True"
+                     Classes="dialogInput" />
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                <Button Content="Cancelar" Click="OnCancelClick" Classes="ghost"/>
+                <Button Content="Agregar"
+                        IsEnabled="{Binding IsValid}"
+                        Click="OnAddClick"
+                        Classes="primary"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+    <Window.Styles>
+        <Style Selector="TextBox.dialogInput">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style Selector="TextBox.dialogInput:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#00c2a8"/>
+            <Setter Property="Background" Value="#2a2a2a"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0" Color="#00c2a8" />
+                    <GradientStop Offset="1" Color="#00a8ff" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+
+        <Style Selector="Button.ghost">
+            <Setter Property="Background" Value="#262626"/>
+            <Setter Property="Foreground" Value="#d0d0d0"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10,8"/>
+        </Style>
+        <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+    </Window.Styles>
+</Window>

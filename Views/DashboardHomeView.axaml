@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaModernApp.ViewModels"
+             xmlns:ui="using:FluentAvalonia.UI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaModernApp.Views.DashboardHomeView"
+             x:DataType="vm:DashboardHomeViewModel">
+
+    <ScrollViewer>
+        <Grid RowDefinitions="Auto, *" Margin="20">
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="Resumen" Theme="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock Text="Bienvenido de nuevo a tu Dashboard" Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.6"/>
+            </StackPanel>
+
+            <!-- Stats Grid -->
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Stats}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="260" Height="140" Margin="0,0,20,20" 
+                                Background="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="20">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center">
+                                     <TextBlock Text="{Binding Value}" Theme="{StaticResource SubtitleTextBlockStyle}" FontWeight="Bold" Foreground="#00d4ff"/>
+                                     <TextBlock Text="{Binding Title}" Theme="{StaticResource BodyTextBlockStyle}" Opacity="0.7"/>
+                                    <TextBlock Text="+2.5% vs la semana pasada" Theme="{StaticResource CaptionTextBlockStyle}" Foreground="#00d4ff" Margin="0,8,0,0" Opacity="0.8"/>
+                                </StackPanel>
+                                <ui:FontIcon Glyph="&#xE9D9;" FontFamily="{StaticResource SymbolThemeFontFamily}" FontSize="32" 
+                                             HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.2" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

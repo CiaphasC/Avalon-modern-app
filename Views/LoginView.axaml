@@ -1,0 +1,149 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AvaloniaModernApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaModernApp.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Background="#20ffffff" 
+                CornerRadius="20" 
+                Padding="40" 
+                Width="400">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="20" Color="#000000" Opacity="0.5" />
+            </Border.Effect>
+            
+            <StackPanel Spacing="20">
+                <TextBlock IsVisible="{Binding !IsRegistering}"
+                           FontSize="28" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center" 
+                           Foreground="White"
+                           Text="Bienvenido de nuevo"/>
+
+                <TextBlock Text="Crear cuenta" 
+                           IsVisible="{Binding IsRegistering}"
+                           FontSize="28" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center" 
+                           Foreground="White"/>
+
+                <!-- Name Field (Register Only) -->
+                <TextBox Text="{Binding Name}" 
+                         Watermark="Nombre completo" 
+                         IsVisible="{Binding IsRegistering}"
+                         Classes="modern"/>
+
+                <!-- Email Field -->
+                <TextBox Text="{Binding Email}" 
+                         Watermark="Correo electronico" 
+                         Classes="modern"/>
+
+                <!-- Password Field -->
+                <TextBox Text="{Binding Password}" 
+                         Watermark="Contrasena" 
+                         PasswordChar="•"
+                         Classes="modern"/>
+
+                <!-- Error Message -->
+                <TextBlock Text="{Binding ErrorMessage}" 
+                           Foreground="#ff4d4d" 
+                           HorizontalAlignment="Center" 
+                           TextWrapping="Wrap"
+                           IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+                <!-- Login Button -->
+                <Button Command="{Binding LoginCommand}" 
+                        Content="LOGIN" 
+                        IsVisible="{Binding !IsRegistering}"
+                        Classes="primary"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"/>
+
+                <!-- Register Button -->
+                <Button Command="{Binding RegisterCommand}" 
+                        Content="REGISTRAR" 
+                        IsVisible="{Binding IsRegistering}"
+                        Classes="primary"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"/>
+
+                <!-- Toggle Button -->
+                <Button Command="{Binding ToggleModeCommand}"
+                        Content="{Binding IsRegistering, StringFormat='¿Ya tienes una cuenta? Login'}"
+                        IsVisible="{Binding IsRegistering}"
+                        Classes="link"
+                        HorizontalAlignment="Center"/>
+                        
+                <Button Command="{Binding ToggleModeCommand}"
+                        Content="¿No tienes una cuenta? Regístrate"
+                        IsVisible="{Binding !IsRegistering}"
+                        Classes="link"
+                        HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+    <UserControl.Styles>
+        <Style Selector="TextBox.modern">
+            <Setter Property="Background" Value="#10ffffff"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#30ffffff"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style Selector="TextBox.modern:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#00d4ff"/>
+            <Setter Property="Background" Value="#25ffffff"/>
+        </Style>
+        <Style Selector="TextBox.modern /template/ Border#PART_BorderElement">
+             <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                    <BrushTransition Property="Background" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0" Color="#00d4ff" />
+                    <GradientStop Offset="1" Color="#0050ff" />
+                </LinearGradientBrush>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15" Easing="CubicEaseOut"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0.9"/>
+             <Setter Property="RenderTransform" Value="scale(1.02)"/>
+        </Style>
+        
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter">
+             <Setter Property="RenderTransform" Value="scale(0.96)"/>
+        </Style>
+         
+        <Style Selector="Button.link">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#a0a0a0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.link:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+    </UserControl.Styles>
+</UserControl>
